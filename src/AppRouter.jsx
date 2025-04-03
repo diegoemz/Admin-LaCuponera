@@ -15,6 +15,7 @@ const AppRouter = () => {
         {/* Redirección por defecto */}
         <Route path="/login" element={<Login />} />
 
+        {/* Rutas protegidas por rol "admin" */}
         <Route
           path="/admin/empresas"
           element={
