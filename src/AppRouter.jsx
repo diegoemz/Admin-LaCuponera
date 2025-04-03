@@ -5,6 +5,7 @@ import AdminClientes from "./pages/AdminClientes";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/Admin/Navbar";
+import AdminCupones from "./pages/AdminCupones";
 
 const AppRouter = () => {
   return (
@@ -21,6 +22,14 @@ const AppRouter = () => {
           element={
             <PrivateRoute requiredRole="admin">
               <AdminEmpresas />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/cupones"
+          element={
+            <PrivateRoute requiredRole="admin">
+              <AdminCupones />
             </PrivateRoute>
           }
         />

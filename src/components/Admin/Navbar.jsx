@@ -39,6 +39,7 @@ const Navbar = () => {
               { path: "/admin/empresas", label: "Empresas" },
               { path: "/admin/rubros", label: "Rubros" },
               { path: "/admin/clientes", label: "Clientes" },
+              { path: "/admin/cupones", label: "Gestionar Cupones" },
             ].map((item) => (
               <li className="nav-item" key={item.path}>
                 <Link
