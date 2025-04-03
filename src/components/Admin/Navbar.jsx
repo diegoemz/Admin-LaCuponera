@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await signOut(auth);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -21,7 +21,7 @@ const Navbar = () => {
       }}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand text-white fw-bold fs-4" to="/">
+        <Link className="navbar-brand text-white fw-bold fs-4" to="/admin/empresas">
           La Cuponera 🎟️
         </Link>
         <button

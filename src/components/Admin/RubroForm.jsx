@@ -23,14 +23,18 @@ const RubroForm = ({ onAdd }) => {
   };
 
   return (
-    <div className="container mt-4 mb-3">
-      <div className="card shadow-sm border-0">
+    <div className="container mt-4 mb-4">
+      <div className="card shadow border-0 rounded-4">
         <div className="card-body">
-          <h5 className="card-title mb-3">Agregar nuevo rubro</h5>
+          <h5 className="fw-bold text-secondary mb-4">
+            📂 Nuevo Rubro
+          </h5>
+
           <form onSubmit={handleSubmit} className="row g-3 align-items-end">
             <div className="col-md-8">
               <label className="form-label">Nombre del rubro</label>
               <input
+                type="text"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 className="form-control"
@@ -38,11 +42,19 @@ const RubroForm = ({ onAdd }) => {
                 required
               />
             </div>
-            <div className="col-md-4">
-              <button type="submit" className="btn btn-success w-100">Agregar</button>
+
+            <div className="col-md-4 d-grid">
+              <button type="submit" className="btn btn-success">
+                Agregar
+              </button>
             </div>
           </form>
-          {mensaje && <div className="alert alert-info mt-3">{mensaje}</div>}
+
+          {mensaje && (
+            <div className="alert alert-info mt-3 text-center fw-semibold">
+              {mensaje}
+            </div>
+          )}
         </div>
       </div>
     </div>

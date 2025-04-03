@@ -71,40 +71,65 @@ const EmpresaForm = ({ onAdd }) => {
 
   return (
     <div className="container mt-4">
-      <div className="card shadow-sm border-0">
+      <div className="card shadow border-0">
         <div className="card-body">
-          <h4 className="card-title mb-4">Registrar nueva empresa</h4>
-          <form onSubmit={handleSubmit} className="row g-3">
-            {[
-              { label: "Nombre de Empresa", name: "nombre" },
-              { label: "Dirección", name: "direccion" },
-              { label: "Nombre de Encargado", name: "contacto" },
-              { label: "Teléfono de Contacto", name: "telefono" },
-              { label: "Correo de empresa", name: "correo", type: "email" },
-              { label: "Rubro", name: "rubro" },
-              { label: "% Comisión", name: "porcentajeComision", type: "number", step: "0.01" },
-              { label: "Email para login", name: "email", type: "email" },
-              { label: "Contraseña", name: "password", type: "password" },
-            ].map(({ label, name, type = "text", step }) => (
-              <div className="col-md-6" key={name}>
-                <label className="form-label">{label}</label>
-                <input
-                  name={name}
-                  type={type}
-                  step={step}
-                  className="form-control"
-                  value={form[name]}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            ))}
+          <h4 className="card-title text-center fw-bold mb-4 text-primary">
+            🏢 Registro de Nueva Empresa
+          </h4>
 
-            <div className="col-12">
-              <button type="submit" className="btn btn-primary w-100">Registrar Empresa</button>
+          <form onSubmit={handleSubmit} className="row g-4">
+            <h6 className="fw-semibold text-secondary">Información de la Empresa</h6>
+            <div className="col-md-6">
+              <label className="form-label">Nombre de Empresa</label>
+              <input type="text" name="nombre" className="form-control" value={form.nombre} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">Dirección</label>
+              <input type="text" name="direccion" className="form-control" value={form.direccion} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">Nombre del Encargado</label>
+              <input type="text" name="contacto" className="form-control" value={form.contacto} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">Teléfono</label>
+              <input type="text" name="telefono" className="form-control" value={form.telefono} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">Correo de empresa</label>
+              <input type="email" name="correo" className="form-control" value={form.correo} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">Rubro</label>
+              <input type="text" name="rubro" className="form-control" value={form.rubro} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">% Comisión</label>
+              <input type="number" name="porcentajeComision" step="0.01" className="form-control" value={form.porcentajeComision} onChange={handleChange} required />
+            </div>
+
+            <hr className="my-4" />
+
+            <h6 className="fw-semibold text-secondary">Credenciales de Acceso</h6>
+            <div className="col-md-6">
+              <label className="form-label">Email para login</label>
+              <input type="email" name="email" className="form-control" value={form.email} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">Contraseña</label>
+              <input type="password" name="password" className="form-control" value={form.password} onChange={handleChange} required />
+            </div>
+
+            <div className="col-12 mt-4">
+              <button type="submit" className="btn btn-success w-100">
+                Registrar Empresa
+              </button>
             </div>
           </form>
-          {mensaje && <div className="alert alert-info mt-3">{mensaje}</div>}
+
+          {mensaje && (
+            <div className="alert alert-info mt-4 text-center fw-semibold">{mensaje}</div>
+          )}
         </div>
       </div>
     </div>

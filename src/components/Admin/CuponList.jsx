@@ -23,7 +23,7 @@ const CuponList = () => {
   const handleRechazar = async (id) => {
     const justificacion = prompt("Escribe el motivo del rechazo del cupón:");
     if (!justificacion?.trim()) return;
-  
+
     try {
       await rechazarCupon(id, justificacion.trim());
       setCupones(cupones.filter((c) => c.id !== id));
@@ -32,33 +32,55 @@ const CuponList = () => {
       console.error("Error al rechazar cupón:", error);
       setMensaje("⚠️ No se pudo rechazar el cupón.");
     }
-  
+
     setTimeout(() => setMensaje(""), 3000);
   };
-  
 
   return (
-    <div className="container mt-4">
-      <h3>Cupones en espera de aprobación</h3>
-      {mensaje && <div className="alert alert-info mt-3">{mensaje}</div>}
+    <div className="container my-5">
+      <div className="mb-4">
+        <h3 className="fw-bold text-primary">Cupones en Espera de Aprobación</h3>
+        <p className="text-muted">Revisa, aprueba o rechaza los cupones enviados por empresas ofertantes</p>
+      </div>
+
+      {mensaje && (
+        <div className="alert alert-info text-center fw-semibold">{mensaje}</div>
+      )}
+
       {cupones.length === 0 ? (
-        <p className="text-muted">No hay cupones pendientes.</p>
+        <div className="alert alert-secondary text-center">
+          No hay cupones pendientes.
+        </div>
       ) : (
-        <div className="list-group">
+        <div className="row row-cols-1 row-cols-md-2 g-4">
           {cupones.map((cupon) => (
-            <div key={cupon.id} className="list-group-item mb-3">
-              <h5>{cupon.titulo}</h5>
-              <p><strong>Precio Regular:</strong> ${cupon.precioRegular}</p>
-              <p><strong>Precio Oferta:</strong> ${cupon.precioOferta}</p>
-              <p><strong>Fecha de inicio:</strong> {cupon.fechaInicio.toDate().toLocaleDateString()}</p>
-              <p><strong>Fecha de fin:</strong> {cupon.fechaFin.toDate().toLocaleDateString()}</p>
-              <p><strong>Descripción:</strong> {cupon.descripcion}</p>
-              <button onClick={() => handleAprobar(cupon.id)} className="btn btn-success btn-sm me-2">
-                Aprobar
-              </button>
-              <button onClick={() => handleRechazar(cupon.id)} className="btn btn-danger btn-sm">
-                Rechazar
-              </button>
+            <div className="col" key={cupon.id}>
+              <div className="card shadow-sm border-0 rounded-4 h-100">
+                <div className="card-body d-flex flex-column justify-content-between">
+                  <h5 className="fw-bold mb-2">{cupon.titulo}</h5>
+                  <ul className="list-unstyled small text-muted mb-3">
+                    <li><strong className="text-dark">Precio regular:</strong> ${cupon.precioRegular}</li>
+                    <li><strong className="text-dark">Precio oferta:</strong> ${cupon.precioOferta}</li>
+                    <li><strong className="text-dark">Fecha de inicio:</strong> {cupon.fechaInicio.toDate().toLocaleDateString()}</li>
+                    <li><strong className="text-dark">Fecha de fin:</strong> {cupon.fechaFin.toDate().toLocaleDateString()}</li>
+                    <li><strong className="text-dark">Descripción:</strong> {cupon.descripcion}</li>
+                  </ul>
+                  <div className="d-flex justify-content-end gap-2 mt-auto">
+                    <button
+                      onClick={() => handleAprobar(cupon.id)}
+                      className="btn btn-success btn-sm"
+                    >
+                      ✅ Aprobar
+                    </button>
+                    <button
+                      onClick={() => handleRechazar(cupon.id)}
+                      className="btn btn-outline-danger btn-sm"
+                    >
+                      ❌ Rechazar
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>

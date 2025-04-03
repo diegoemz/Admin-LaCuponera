@@ -21,19 +21,15 @@ const Login = () => {
       const cred = await signInWithEmailAndPassword(auth, form.email, form.password);
       const uid = cred.user.uid;
 
-      // Buscar en colección usuarios
       const usuarioDoc = await getDoc(doc(db, "usuarios", uid));
-      const empleadoDoc = await getDoc(doc(db, "empleados", uid));
 
       if (usuarioDoc.exists()) {
         const userData = usuarioDoc.data();
         if (userData.rol === "admin") {
           navigate("/admin/empresas");
         } else {
-          navigate("/tienda"); // o cualquier ruta de cliente
+          setError("No tienes permisos para acceder a esta plataforma.");
         }
-      } else if (empleadoDoc.exists()) {
-        navigate("/canje"); // ruta de canje para empleados
       } else {
         setError("No tienes permisos para acceder a esta plataforma.");
       }
@@ -44,36 +40,49 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "500px" }}>
-      <h2 className="mb-4 text-center">Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Correo electrónico</label>
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="correo@ejemplo.com"
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Contraseña</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="********"
-            required
-          />
-        </div>
-        {error && <div className="alert alert-danger">{error}</div>}
-        <button type="submit" className="btn btn-primary w-100">Entrar</button>
-      </form>
+    <div className="container d-flex align-items-center justify-content-center min-vh-100 flex-column">
+      <h1 className="text-center text-primary fw-bold mb-4">
+        La Cuponera Administrador 🎟️
+      </h1>
+
+      <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
+        <h2 className="text-center mb-4">Iniciar Sesión</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="correo@ejemplo.com"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="********"
+              required
+            />
+          </div>
+          {error && <div className="alert alert-danger">{error}</div>}
+          <button type="submit" className="btn btn-primary w-100">
+            Entrar
+          </button>
+        </form>
+      </div>
+
+      {/* Footer */}
+      <footer className="text-center text-muted mt-4" style={{ fontSize: "0.9rem" }}>
+        © 2025 La Cuponera. Todos los derechos reservados.
+      </footer>
     </div>
   );
 };

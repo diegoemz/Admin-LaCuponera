@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import AdminEmpresas from "./pages/AdminEmpresas";
 import AdminRubros from "./pages/AdminRubros";
 import AdminClientes from "./pages/AdminClientes";
@@ -7,16 +7,20 @@ import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/Admin/Navbar";
 import AdminCupones from "./pages/AdminCupones";
 
-const AppRouter = () => {
+import { useEffect } from "react";
+
+const AppContent = () => {
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === "/";
+
   return (
-    <BrowserRouter>
-      <Navbar />
+    <>
+      {!isLoginPage && <Navbar />}
+
       <Routes>
+        <Route path="/" element={<Login />} />
 
-        {/* Redirección por defecto */}
-        <Route path="/login" element={<Login />} />
-
-        {/* Rutas protegidas por rol "admin" */}
         <Route
           path="/admin/empresas"
           element={
@@ -49,8 +53,6 @@ const AppRouter = () => {
             </PrivateRoute>
           }
         />
-
-        {/* Ruta 404 */}
         <Route
           path="*"
           element={
@@ -61,6 +63,14 @@ const AppRouter = () => {
           }
         />
       </Routes>
+    </>
+  );
+};
+
+const AppRouter = () => {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 };

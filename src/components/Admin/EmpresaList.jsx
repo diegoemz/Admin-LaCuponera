@@ -21,43 +21,38 @@ const EmpresaList = ({ refreshTrigger }) => {
 
   return (
     <div className="container mt-4">
-      <h3 className="mb-4">Empresas Registradas</h3>
-      <div className="row row-cols-1 row-cols-md-2 g-4">
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {empresas.map((empresa) => (
           <div className="col" key={empresa.id}>
-            <div className="card border-0 shadow-sm rounded-4 h-100">
-              <div className="card-body d-flex flex-column justify-content-between h-100">
-                <div className="mb-3">
-                  <div className="d-flex align-items-center mb-3">
-                    <div
-                      className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center me-3"
-                      style={{ width: "48px", height: "48px", fontSize: "1.2rem" }}
-                    >
-                      {empresa.nombre?.charAt(0)}
-                    </div>
-                    <div>
-                      <h5 className="mb-0">{empresa.nombre}</h5>
-                      <small className="text-muted">{empresa.correo}</small>
-                    </div>
+            <div className="card h-100 shadow-sm border-0 rounded-4">
+              <div className="card-body d-flex flex-column justify-content-between">
+                {/* Header con inicial y nombre */}
+                <div className="d-flex align-items-center mb-3">
+                  <div
+                    className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-3"
+                    style={{ width: "50px", height: "50px", fontSize: "1.3rem" }}
+                  >
+                    {empresa.nombre?.charAt(0)}
                   </div>
-
-                  <p className="mb-1">
-                    <strong className="text-secondary">Código:</strong>{" "}
-                    <span className="text-muted">{empresa.codigo}</span>
-                  </p>
-                  <p className="mb-1">
-                    <strong className="text-secondary">Teléfono:</strong>{" "}
-                    <span className="text-muted">{empresa.telefono}</span>
-                  </p>
-                  <p className="mb-2">
-                    <strong className="text-secondary">Dirección:</strong>{" "}
-                    <span className="text-muted">{empresa.direccion}</span>
-                  </p>
-                  <span className="badge bg-info text-dark">{empresa.rubro}</span>
+                  <div>
+                    <h5 className="mb-0">{empresa.nombre}</h5>
+                    <small className="text-muted">{empresa.email}</small>
+                  </div>
                 </div>
 
+                {/* Datos */}
+                <ul className="list-unstyled mb-3">
+                  <li><strong className="text-secondary">Código:</strong> {empresa.codigo}</li>
+                  <li><strong className="text-secondary">Encargado:</strong> {empresa.contacto}</li>
+                  <li><strong className="text-secondary">Correo empresa:</strong> {empresa.correo}</li>
+                  <li><strong className="text-secondary">Teléfono:</strong> {empresa.telefono}</li>
+                  <li><strong className="text-secondary">Dirección:</strong> {empresa.direccion}</li>
+                  <li><strong className="text-secondary">Rubro:</strong> {empresa.rubro}</li>
+                  <li><strong className="text-secondary">Comisión:</strong> {empresa.porcentajeComision}%</li>
+                </ul>
+
                 <button
-                  className="btn btn-outline-danger btn-sm mt-3"
+                  className="btn btn-outline-danger btn-sm w-100 mt-auto"
                   onClick={() => handleDelete(empresa.id)}
                 >
                   Eliminar empresa
@@ -68,9 +63,9 @@ const EmpresaList = ({ refreshTrigger }) => {
         ))}
 
         {empresas.length === 0 && (
-          <div className="col">
-            <div className="alert alert-secondary text-center">
-              No hay empresas registradas.
+          <div className="col-12">
+            <div className="alert alert-info text-center">
+              No hay empresas registradas aún.
             </div>
           </div>
         )}
