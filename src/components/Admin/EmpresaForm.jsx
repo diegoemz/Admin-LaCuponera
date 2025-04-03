@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { useEffect } from "react";
 
 const EmpresaForm = ({ onAdd }) => {
   const [form, setForm] = useState({
@@ -69,6 +70,26 @@ const EmpresaForm = ({ onAdd }) => {
     setTimeout(() => setMensaje(""), 5000);
   };
 
+  const [rubros, setRubros] = useState([]);
+
+  useEffect(() => {
+    const fetchRubros = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "rubros"));
+        const rubrosObtenidos = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setRubros(rubrosObtenidos);
+      } catch (error) {
+        console.error("Error al obtener rubros:", error);
+      }
+    };
+
+    fetchRubros();
+  }, []);
+
+
   return (
     <div className="container mt-4">
       <div className="card shadow border-0">
@@ -101,7 +122,14 @@ const EmpresaForm = ({ onAdd }) => {
             </div>
             <div className="col-md-6">
               <label className="form-label">Rubro</label>
-              <input type="text" name="rubro" className="form-control" value={form.rubro} onChange={handleChange} required />
+              <select name="rubro" className="form-select" value={form.rubro} onChange={handleChange} required>
+                <option value="">Selecciona un rubro</option>
+                {rubros.map((rubro) => (
+                  <option key={rubro.id} value={rubro.nombre}>
+                    {rubro.nombre}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="col-md-6">
               <label className="form-label">% Comisión</label>
