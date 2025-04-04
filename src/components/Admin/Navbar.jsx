@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav
       className="navbar navbar-expand-lg navbar-dark"
       style={{
-        background: "linear-gradient(90deg, #4caf50, #81c784)", // Gradiente verde
+        background: "#588157", // Gradiente verde
         padding: "1rem",
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)", // Sombra para un mejor efecto visual
       }}
