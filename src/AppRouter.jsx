@@ -8,6 +8,7 @@ import Navbar from "./components/Admin/Navbar";
 import AdminCupones from "./pages/AdminCupones";
 
 import { useEffect } from "react";
+import AdminCouponsPage from "./pages/AdminCouponsPage";
 
 const AppContent = () => {
   const location = useLocation();
@@ -26,6 +27,14 @@ const AppContent = () => {
           element={
             <PrivateRoute requiredRole="admin">
               <AdminEmpresas />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/cupones-activos"
+          element={
+            <PrivateRoute requiredRole="admin">
+              <AdminCouponsPage />
             </PrivateRoute>
           }
         />
