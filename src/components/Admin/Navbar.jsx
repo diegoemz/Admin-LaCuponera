@@ -13,17 +13,25 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar navbar-expand-lg"
+      className="navbar navbar-expand-lg navbar-dark"
       style={{
-        background: "linear-gradient(90deg, #0f2027, #203a43, #2c5364)",
+        background: "linear-gradient(90deg, #4caf50, #81c784)", // Gradiente verde
         padding: "1rem",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)", // Sombra para un mejor efecto visual
       }}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand text-white fw-bold fs-4" to="/admin/empresas">
-          La Cuponera 🎟️
+        <Link className="navbar-brand" to="/admin/empresas">
+          <img
+            src="/img/cuponeralogo.svg" // Ruta de tu imagen
+            alt="La Cuponera Logo"
+            style={{
+              width: "200px", // Aumentando el tamaño de la imagen
+              height: "auto", // Manteniendo la proporción de la imagen
+            }}
+          />
         </Link>
+
         <button
           className="navbar-toggler bg-light"
           type="button"
@@ -34,13 +42,13 @@ const Navbar = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="adminNavbar">
-          <ul className="navbar-nav me-auto">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {[
               { path: "/admin/empresas", label: "Empresas" },
               { path: "/admin/rubros", label: "Rubros" },
               { path: "/admin/clientes", label: "Clientes" },
               { path: "/admin/cupones", label: "Gestionar Cupones" },
-              {path: "/admin/cupones-activos", label: "Cupones Activos"}
+              { path: "/admin/cupones-activos", label: "Cupones Activos" },
             ].map((item) => (
               <li className="nav-item" key={item.path}>
                 <Link
